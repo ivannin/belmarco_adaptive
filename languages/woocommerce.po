@@ -1,0 +1,3 @@
+#: templates/cart/cart.php:137 templates/checkout/form-coupon.php:40
+msgid "Apply coupon"
+msgstr "Применить купон"
