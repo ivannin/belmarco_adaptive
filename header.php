@@ -17,13 +17,6 @@
 <meta charset="<?php bloginfo( 'charset' ); ?>">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="profile" href="http://gmpg.org/xfn/11">
-<script async src="https://www.googletagmanager.com/gtag/js?id=AW-807979509"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'AW-807979509');
-</script>
 <?php wp_head(); ?>
 <meta name="google-site-verification" content="As0DBLr0ghaN-DLY0ZDE8TqoYinhDBsK1i2zgGHjXjg" />
 <meta name="p:domain_verify" content="f35e365e8658bf6e196ef6b4c01ff0e4"/>
