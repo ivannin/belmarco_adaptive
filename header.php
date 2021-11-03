@@ -117,7 +117,7 @@ if ( function_exists( 'gtm4wp_the_gtm_tag' ) ) { gtm4wp_the_gtm_tag(); }
     <?php if ( function_exists('yoast_breadcrumb_mobile') && !is_front_page()){ yoast_breadcrumb_mobile('<div id="breadcrumbs-mob" class="mobile_view">','</div>'); } ?>
     <?php $productws = array();?>
     <?php if(is_tax( 'product_cat' )){
-      $term = get_term_by( 'slug', get_query_var( 'term' ), get_query_var( 'taxonomy' ) );
+      /*$term = get_term_by( 'slug', get_query_var( 'term' ), get_query_var( 'taxonomy' ) );
       $args = array('posts_per_page' => -1, 'product_cat' => $term->name, 'post_type' => 'product');
       $loop = new WP_Query( $args );
       while ( $loop ->have_posts() ) : $loop ->the_post();
@@ -127,6 +127,6 @@ if ( function_exists( 'gtm4wp_the_gtm_tag' ) ) { gtm4wp_the_gtm_tag(); }
       wp_reset_query();
       session_start();
       $_SESSION['productws'] = $productws;
-      $_SESSION['term_cat'] = $term;
+      $_SESSION['term_cat'] = $term;*/
     }?>
     <div id="content" class="site-content clearfix">

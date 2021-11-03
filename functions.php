@@ -191,7 +191,7 @@ require get_template_directory() . '/inc/customizer.php';
 //require get_template_directory() . '/inc/jetpack.php';
 require get_template_directory(). '/inc/belmarco_functions.php';
 require get_template_directory(). '/inc/woocommerce_functions.php';
-require get_template_directory(). '/inc/criteo_onetag.php';
+//require get_template_directory(). '/inc/criteo_onetag.php';
 add_theme_support( 'woocommerce' );
 
 /*Вывод отзыва (комментария)*/
