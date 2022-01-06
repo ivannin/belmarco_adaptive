@@ -1,12 +1,61 @@
-	/*if ( YMaps.location.city != '' ) {
-		var region = YMaps.location.city,
+ymaps.ready( function() {
+	function getCookie( name ) {
+		var matches = document.cookie.match( new RegExp(
+			"(?:^|; )" + name.replace( /([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1' ) + "=([^;]*)"
+		) );
+		return matches ? decodeURIComponent( matches[ 1 ] ) : undefined;
+	}
+
+	function setCookie( name, value, options ) {
+		options = options || {};
+
+		var expires = options.expires;
+
+		if ( typeof expires == "number" && expires ) {
+			var d = new Date();
+			d.setTime( d.getTime() + expires * 1000 );
+			expires = options.expires = d;
+		}
+		if ( expires && expires.toUTCString ) {
+			options.expires = expires.toUTCString();
+		}
+
+		value = encodeURIComponent( value );
+
+		var updatedCookie = name + "=" + value;
+
+		/*for ( var propName in options ) {
+			updatedCookie += "; " + propName;
+			var propValue = options[ propName ];
+			if ( propValue !== true ) {
+				updatedCookie += "=" + propValue;
+			}
+		}*/
+
+		document.cookie = updatedCookie;
+	}
+
+	if ( ymaps.geolocation.city != '' ) {
+		var region = ymaps.geolocation.city,
 			regionHeader = '',
 			regionDiscount = '',
 			regionDelivery = '',
 			regionDealer1 = '',
 			regionDealer2 = '';
-	}*/
-	region = '';
+
+		cookieValue = getCookie( 'wc_geo_city' );
+		console.log( "cookieValue: " + cookieValue );
+
+		if ( cookieValue == undefined ) {
+			cookieValue = region;
+			setCookie( 'wc_geo_city', cookieValue );
+		}
+
+		var el = document.getElementById( 'wc_geo_cityname' );
+		if ( el !== null ) {
+			el.textContent = cookieValue;
+		}
+	}
 	if ( region == 'Москва' ) {
 		regionHeader = "Москве и Московской области";
 		regionDiscount = "в Москве";
@@ -1321,3 +1370,4 @@
 		regionDealer1 = "";
 		regionDealer2 = "";
 	}
+} );

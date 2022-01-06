@@ -124,7 +124,9 @@ function belmarco_scripts() {
   if (is_page('reviews')){
 		wp_enqueue_script( 'contact-form-discount', get_template_directory_uri() . '/js/contact-form-discount.js', array('jquery','jquery-fancybox','jquery-easing'), null, true);
 	}
-	wp_enqueue_script( 'regiontitle', get_template_directory_uri() . '/js/regiontitle.js', array('jquery'), null, true);
+	wp_enqueue_script( 'api-maps', 'https://api-maps.yandex.ru/2.0-stable/?apikey='.get_option('wc_geo_promo_api_key').'&lang=ru_RU&load=package.standard', array('jquery'), null, true );
+
+	wp_enqueue_script( 'regiontitle', get_template_directory_uri() . '/js/regiontitle.js', array('jquery','api-maps'), null, true);
 	wp_enqueue_script( 'geolocation', get_template_directory_uri() . '/js/geolocation.js', array('jquery'), null, true);
 	wp_enqueue_script( 'zoom-image', get_template_directory_uri() . '/js/zoomsl-3.0.min.js', array('jquery'), null, true);
 	//LP
@@ -191,7 +193,7 @@ require get_template_directory() . '/inc/customizer.php';
 //require get_template_directory() . '/inc/jetpack.php';
 require get_template_directory(). '/inc/belmarco_functions.php';
 require get_template_directory(). '/inc/woocommerce_functions.php';
-//require get_template_directory(). '/inc/criteo_onetag.php';
+require get_template_directory(). '/inc/criteo_onetag.php';
 add_theme_support( 'woocommerce' );
 
 /*Вывод отзыва (комментария)*/
@@ -290,4 +292,37 @@ if( function_exists('acf_add_options_page') ) {
 		'capability'	=> 'edit_posts',
 		'redirect'		=> false
 	));	
+}
+
+add_action( 'woocommerce_product_query', 'add_product_tax_query', 1000000, 2 );
+function add_product_tax_query($query ) {
+/*	echo '<pre>';
+	echo '<pre>';
+	print_r($query);
+	echo '</pre>';*/	
+    // Only on Product Category archives pages
+    if( is_admin() || ! is_product_category() || isset( $_GET['swoof'] ) || isset( $query->query_vars['prdctfltr_active'])) {
+    	return; 
+    }
+
+	$tax_query = $query->get( 'tax_query' );
+	if ( ! is_array( $tax_query ) ) {
+		$tax_query = array(
+			'relation' => 'AND',
+		);
+	} else {
+		$tax_query['relation'] = 'AND';		
+	}
+
+    // The taxonomy for Product Categories
+    $taxonomy = 'product_cat';
+
+        $tax_query[] = array(
+            'taxonomy'       => $taxonomy,
+            'field'   => 'slug',
+            'terms'     => array( "variations"),
+            'operator'   => 'NOT IN'
+        );
+    $query->set('tax_query', $tax_query);
+ 
 }

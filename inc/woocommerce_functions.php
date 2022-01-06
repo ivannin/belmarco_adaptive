@@ -726,6 +726,7 @@ function payment_shipping_output() {?>
 		<div class="payment_shipping">	
     <?php if(get_field('payment_shipping', 'option')) the_field('payment_shipping', 'option');?>
 		</div>
+    <?php @include(get_stylesheet_directory() . '/inc/action_2021-11-03.php'); ?>
 	</div>
 <?php 
 }
